@@ -3,7 +3,7 @@
 {% load static %}
 {% load widget_tweaks %}
 
-
+{% if not user.is_authenticated %}
 {% block content %}
 <div class="page-header vh" filter-color="orange">
     <div class="page-header-image" style="background-image:url({% static 'img/a4.jpg' %})"></div>
@@ -82,13 +82,4 @@
     </div>
  
 {% endblock %}
-
- <div class="container">
-    <h2> LOGIN</h2>
-    <form method="post" novalidate>
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Login</button>
-    </form>
-    <span>if you dont have an account you can <a href="">Signup</a></span>
-  </div>
+{% endif %}

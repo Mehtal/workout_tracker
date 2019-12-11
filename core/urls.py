@@ -18,7 +18,7 @@ from django.urls import path, include
 # from volume.views import ExerciceCreateView, RepCreateView, SessionDetail, SessionList, SessionCreateView
 from django.conf import settings
 from django.contrib.auth import views as auth_views
-from django.views.static import serve 
+from django.views.static import serve
 
 
 urlpatterns = [
@@ -35,14 +35,17 @@ urlpatterns = [
     # path('session/create/', SessionCreateView.as_view(), name="session_create"),
 ]
 
-urlpatterns += path('media/<path:path>', serve,{'document_root': settings.MEDIA_ROOT}), 
-urlpatterns += path('static/<path:path>', serve,{'document_root': settings.STATIC_ROOT}), 
-#if settings.DEBUG:
-#    import debug_toolbar
-#    urlpatterns = [
-#        path('__debug__/', include(debug_toolbar.urls)),
+if not settings.DEBUG:
+    urlpatterns += path('media/<path:path>', serve, {'document_root': settings.MEDIA_ROOT}),
+    urlpatterns += path('static/<path:path>', serve, {'document_root': settings.STATIC_ROOT}),
 
-        # For django versions before 2.0:
-        # url(r'^__debug__/', include(debug_toolbar.urls)),
 
- #   ] + urlpatterns
+# if settings.DEBUG:
+#     import debug_toolbar
+#     urlpatterns = [
+#         path('__debug__/', include(debug_toolbar.urls)),
+
+#         For django versions before 2.0:
+#         url(r'^__debug__/', include(debug_toolbar.urls)),
+
+#     ] + urlpatterns

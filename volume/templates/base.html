@@ -17,6 +17,9 @@
     <title>{% block title%}Workout Tracking by Fitness Algeria{% endblock title%}</title>
   </head>
   <body>
+    {% if user.is_authenticated %}
+    {% include 'navbar.html' %}
+    {% endif %}
     {% block content%}
     {% endblock content%}
 

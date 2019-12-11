@@ -2,7 +2,6 @@
     padding-top: $navbar-padding-base;
     padding-bottom: $navbar-padding-base;
     min-height: 53px;
-    margin-bottom: 20px;
     box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.15);
 
     a{
@@ -195,4 +194,12 @@
 
 .bg-white{
     background-color: $white-color !important;
+}
+
+.custom-nav {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: space-around;
 }
