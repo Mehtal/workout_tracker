@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load widget_tweaks %}
 
 {% block content %}
 {% if user.is_authenticated%}
@@ -7,9 +7,9 @@
 	<div class="row">
 		<div class="col">
 			<h1> session list </h1>
-			<div class="row">
+			<!-- <div class="row">
 			<a class="btn btn-primary btn-block m-4" href="{% url 'volume:session_create' %}">add session</a>
-			</div>
+			</div> -->
 			{% for obj in object_list %}
 			<p>session : <a href="{% url 'volume:session_detail' obj.id %}">{{obj.date}}</a> </p> <hr/>
 			{% endfor %}
@@ -18,4 +18,44 @@
 	</div>
 </div>
 {% endif %}
+
+<!-- Modal -->
+<div class="modal fade bg-ios text-white" id="addSetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">add a session</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+          <form id="newform" method="post" action="{% url 'volume:session_create' %}">{% csrf_token %}
+
+            {{ newform.non_field_errors }}
+
+            {% for hidden_field in set.hidden_fields %}
+              {{ hidden_field.errors }}
+              {{ hidden_field }}
+            {% endfor %}
+
+            <div class="p-4  mb-5">
+              {% for field in newform.visible_fields %}
+               
+                    {{ field.label_tag }}
+                 	
+                    {{ field.errors }}
+                    {% render_field field class="form-control text-white"  %}
+                    {{ field.help_text }}
+                 
+                
+              {% endfor %}
+            </div>
+          <button id="mybutton" type="button" class="btn btn-secondary" data-dismiss="modal">Ferme</button>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}

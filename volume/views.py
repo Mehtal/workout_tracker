@@ -13,9 +13,7 @@ from django.utils.decorators import method_decorator
 
 @method_decorator(login_required, name='dispatch')
 class SessionCreateView(CreateView):
-    # model = Session
     form_class = SessionForm
-    # fields = ['user', 'date', 'body_weight']
     template_name = 'create_rep.html'
 
     def form_valid(self, form):
@@ -57,51 +55,11 @@ class SessionList(LoginRequiredMixin, ListView):
         qs = Session.objects.filter(user__id=self.request.user.id)
         return qs
 
-
-# @method_decorator(login_required, name='dispatch')
-# class RepCreateView(CreateView):
-#     # model = Rep
-#     # fields = ['session', 'exercice', 'repition', 'weight']
-#     form_class = RepAddForm
-#     template_name = 'create_rep.html'
-#     # success_url = '/'
-
-#     # def __init__(self, user, *args, **kwargs):
-#     #     super(RepCreateView, self).__init__(*args, **kwargs)
-#     #     self.fields['session'].queryset = Session.objects.filter(user=user)
-
-#     def post(self, request, *args, **kwargs):
-#         """
-#         Handle POST requests: instantiate a form instance with the passed
-#         POST variables and then check if it's valid.
-#         """
-#         form = self.get_form(request.user, request.POST)
-#         if form.is_valid():
-#             return self.form_valid(form)
-#         else:
-#             return self.form_invalid(form)
-
-#     def get_context_data(self, **kwargs):
-#         """Insert the form into the context dict."""
-#         context = super(RepCreateView, self).get_context_data(**kwargs)
-#         if 'form' not in kwargs:
-#             kwargs['form'] = self.get_form(self.request.user)
-#         return context
-
-#     # def get_initial(self):
-#     #     """Return the initial data to use for forms on this view."""
-#     #     self.fields['session'].queryset = Session.objects.filter(user=self.request.user)
-#     #     print("*********************************************************************")
-#     #     print(self.initial)
-#     #     print("*********************************************************************")
-
-#     #     return self.initial.copy()
-
-#     def form_valid(self, form):
-#         x = self.request.POST.get("session")
-#         success_url = reverse('volume:session_detail', args=[x])
-#         form.save()
-#         return HttpResponseRedirect(success_url)
+    def get_context_data(self, **kwargs):
+        context = super(SessionList, self).get_context_data(**kwargs)
+        """adding the Session Form to Context"""
+        context['newform'] = SessionForm()
+        return context
 
 
 @login_required
@@ -121,10 +79,6 @@ class RepDeleteView(DeleteView):
     model = Rep
     template_name = 'rep_delete.html'
     success_url = reverse_lazy('volume:session-list')
-
-# class RepList(ListView):
-#     model = Rep
-#     template_name = 'rep_list.html'
 
 
 @method_decorator(login_required, name='dispatch')
