@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container mt-5">
+	<div class="row">
+		<div class="col">
+			<h1 class="mb-0">Session detail {{ object.date }}</h1>
+      <p class="text-muted">current body weight is {{ object.get_body_weight }} kg. </p>
+        
+        <!-- <p class="text-muted">{{object.get_total_volume}}</p>
+        <p class="text-muted">your chest volume is {{object.get_chest_volume}}</p> -->
+
+			<div class="row my-4">
+			<div class="col"><a class="btn btn-primary btn-block" data-toggle="modal" data-target="#addSetModal">add set</a></div>
+			<div class="col"><a class="btn btn-danger btn-block" href="{% url 'volume:session-list' %}">go back</a></div>
+			</div>
+			
+			<table class="table">
+			  <thead class="table-primary">
+			    <tr>
+			      <th>name </th>
+			      <th>muscle</th>
+			      <th>weight</th>
+			      <th>repition</th>
+            <th>delete</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	{% for obj in object.rep_set.all %}
+			    <tr  class="{% if obj.repition <= 5 %}table-danger{% elif obj.repition > 5  and  obj.repition <= 8 %}table-warning{% elif obj.repition > 8  and  obj.repition <= 12 %}table-success{% endif %}" >
+			      <th scope="row">{{ obj.exercice.name }}</th>
+			      <td> <span class="badge badge-dark">{{ obj.exercice.primarymg }}</span></td>
+			      <td>{{ obj.weight }} Kg</td>
+			      <td>{{ obj.repition }}</td>
+            <td><form method="post" action="{% url 'volume:rep-delete' obj.id %}">{% csrf_token %}
+    <button class="btn btn-danger text-white" type="submit" value="Confirm"><i class="far fa-trash-alt"></i></button>
+</form></td>
+			    </tr>
+			    {% endfor %}
+			  </tbody>
+			</table>
+			
+
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade bg-ios text-white" id="addSetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">add a workout set</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+          <form id="set_form" method="post" action="{% url 'volume:add-set' %}">{% csrf_token %}
+
+            {{ set_form.non_field_errors }}
+
+            {% for hidden_field in set.hidden_fields %}
+              {{ hidden_field.errors }}
+              {{ hidden_field }}
+            {% endfor %}
+
+            <div class="p-4  mb-5">
+              {% for field in set_form.visible_fields %}
+               
+                    {{ field.label_tag }}
+                 	
+                    {{ field.errors }}
+                    {% render_field field class="form-control text-whie" placeholder=field.name %}
+                    {{ field.help_text }}
+                 
+                
+              {% endfor %}
+            </div>
+          <button id="mybutton" type="button" class="btn btn-secondary" data-dismiss="modal">Ferme</button>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+          </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- <button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#addSetModal"><i class="fas fa-project-diagram mr-2"></i> Ajouter Une Location 
+</button> -->
+

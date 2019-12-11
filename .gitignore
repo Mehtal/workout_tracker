@@ -1,0 +1,13 @@
+*.pyc
+__pycache__/
+__pycache__/*.*
+db.sqlite3
+migrations/
+migrations/*.*
+manage.py/
+core/wsgi.py
+wsgi.py
+dev.py
+prod.py
+core/settings/dev.py
+core/settings/prod.py

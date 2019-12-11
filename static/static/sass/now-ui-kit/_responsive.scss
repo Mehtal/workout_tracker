@@ -1,0 +1,16 @@
+
+
+@media screen and (max-width: 579px) {
+    .navbar-brand {
+        display:none;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    #navSearch ,
+    #left-section ,
+    #right-section {
+        display:none;
+    }
+    
+}

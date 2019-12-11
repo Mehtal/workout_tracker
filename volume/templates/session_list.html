@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% if user.is_authenticated%}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h1> session list </h1>
+			<div class="row">
+			<a class="btn btn-primary btn-block m-4" href="{% url 'volume:session_create' %}">add session</a>
+			</div>
+			{% for obj in object_list %}
+			<p>session : <a href="{% url 'volume:session_detail' obj.id %}">{{obj.date}}</a> </p> <hr/>
+			{% endfor %}
+			
+		</div>
+	</div>
+</div>
+{% endif %}
+{% endblock content %}

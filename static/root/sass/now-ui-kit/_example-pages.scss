@@ -1,0 +1,230 @@
+.login-page{
+
+    .card-login{
+        border-radius: $border-radius-large;
+        padding-bottom: $padding-base-horizontal;
+        max-width: 320px;
+
+        .btn-wd{
+            min-width: 180px;
+        }
+
+        .logo-container{
+            width: 65px;
+            margin: 0 auto;
+            margin-bottom: 55px;
+
+            img{
+                width: 100%;
+            }
+        }
+
+        .input-group:last-child{
+            margin-bottom: 40px;
+        }
+
+        &.card-plain{
+            @include input-coloured-bg($opacity-5, $white-color, $white-color, $transparent-bg, $opacity-1, $opacity-2);
+
+            .input-group-addon,
+            .form-group.form-group-no-border .input-group-addon,
+            .input-group.form-group-no-border .input-group-addon{
+                color: $opacity-8;
+            }
+        }
+    }
+
+    .link{
+        font-size: 10px;
+        color: $white-color;
+        text-decoration: none;
+    }
+}
+
+// home page styke
+.card {
+    margin-bottom:50px;
+    .card-top {
+        padding:10px;
+        img {
+            max-width: 50px;
+            max-height: 50px;
+            float: left;
+
+        }
+        .username {            
+            display: block;
+            font-size: 16px;
+            font-weight: 600;      
+
+        }
+        .timestamp {
+            display: block;
+            font-size: 12px;
+            a {
+                color:$dark-gray;
+            }
+
+        }
+        &:after {
+        clear:both;
+        }
+    }
+    .card-post-image {
+        padding:10px;
+    }
+    .card-block {
+        
+        .card-text {
+            color:$light-black;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            padding:10px;
+        }
+    }
+
+}
+.grade-box {
+    .failed {
+            background-color:$danger-color;
+        }
+    margin-bottom:50px;
+    .grade-box-icon {
+        flex-basis: 25%;
+        text-align: center;
+        font-size: 45px;
+        line-height: 90px;
+        background: rgba(0,0,0,0.2);
+        
+        &:after {
+            clear: both;
+            
+        }
+
+    }
+    .grade-box-content {
+        padding:5px 10px;
+        margin-left:10px;
+        flex-basis:75%;
+        span {
+            display:block;
+        }
+        .grade-box-text {
+            font-size: 16px;
+            font-weight: 600;
+
+        }
+        .grade-box-number {
+            font-size:18px;
+            font-weight:bold;
+        }
+        .progress {
+            margin: 5px 10px;
+        }
+    }
+}
+.form-container {
+    padding:20px;
+}
+
+// profile page 
+
+.card-profile {
+  position: relative;
+  max-height:450px;
+  display:flex;
+  flex-direction: column;
+  margin: 50px auto;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 0.25rem;
+  border: 1px solid rgba(0,0,0,0.125);
+
+  /* box-shadow: 1em 1em 2em rgba(0,0,0,.2); */
+  
+  .card-img-top {
+    border-radius: 0;
+    padding:0px;
+  }
+
+  .card-img-profile {
+    max-width: 100px;       
+    border-radius: 100%;
+    margin-top: -70px;
+    border: 3px solid #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        
+  }
+
+  
+  
+}
+.card-block {
+    padding: 1.25rem;
+    .cl {
+        padding-left: 0;
+        list-style: none;
+    }
+    .lmb{
+        margin-bottom:0.25rem;
+      
+  }
+    }
+
+
+
+.img-list {
+     height:75px;
+     width:75px;
+     border-radius:8px;    
+ 
+}    
+
+
+.border-thin-transparent {
+        border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+
+.alert-dismissible .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.75rem 0.5rem;
+    color: inherit;
+    &:hover {
+        color:$primary-color;
+    }
+}
+
+
+
+.pi {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.tr {
+    position:absolute;
+    top:8px;
+    right:30px;
+    color:#1d2124;
+}
+
+.nav-spacing {
+    padding:50px;
+}
+.vh {
+    height: 100vh !important;
+}
+.list-group-item {
+    background-color: inherit;
+}
+
+.fb {
+    flex-basis:100%;
+    justify-content:flex-end;
+}
+
+.sticky-top {
+    top:100px;
+}

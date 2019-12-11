@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+
+{% for obj in object_list %}
+  Exercice Name : {{ obj.exercice.name }}</br>
+  Repetition    : {{ obj.repition }}</br>
+  Weight		: {{ obj.weight }}</br>
+  muscle        : {{obj.exercice.primarymg }}</br>
+  other muscles : {{obj.exercice.secondarymg.all|join:", " }}</br>
+  date : <a href="{% url 'volume:session_detail' obj.id %}">{{ obj.session.date }}</a>
+
+   <hr/>
+{% endfor %}
+
+
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
