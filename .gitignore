@@ -11,3 +11,6 @@ dev.py
 prod.py
 core/settings/dev.py
 core/settings/prod.py
+logs.txt
+tmp/
+manage.py
