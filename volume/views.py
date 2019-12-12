@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, reverse, redirect
+from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from accounts.models import User
 from .models import Rep, Exercice, Session

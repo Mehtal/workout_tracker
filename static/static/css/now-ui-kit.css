@@ -2413,6 +2413,10 @@ body {
   .separator.separator-primary {
     background-color: #2CA8FF; }
 
+.arrow-right {
+  position: absolute;
+  right: 10px; }
+
 .nav-pills .nav-item .nav-link {
   padding: 0 15.5px;
   text-align: center;
@@ -3560,6 +3564,9 @@ Created using IcoMoon - icomoon.io
   .card-plain .content {
     padding-left: 0;
     padding-right: 0; }
+
+.card-img-top {
+  height: 150px; }
 
 .footer {
   padding: 24px 0; }

@@ -2,18 +2,18 @@
 {% load widget_tweaks %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container">
 	<div class="row">
-		<div class="col">
+		<div class="col my-3">
 			<h1 class="mb-0">Session detail {{ object.date }}</h1>
       <p class="text-muted">current body weight is {{ object.get_body_weight }} kg. </p>
-        
+    </div>    
         <!-- <p class="text-muted">{{object.get_total_volume}}</p>
         <p class="text-muted">your chest volume is {{object.get_chest_volume}}</p> -->
-
-			
+  </div>
+		<div class="row">	
 			<table class="table">
-			  <thead class="table-primary">
+			  <thead class="bg-default">
 			    <tr>
 			      <th>name </th>
 			      <th>muscle</th>
@@ -24,22 +24,21 @@
 			  </thead>
 			  <tbody>
 			  	{% for obj in object.rep_set.all %}
-			    <tr  class="{% if obj.repition <= 5 %}table-danger{% elif obj.repition > 5  and  obj.repition <= 8 %}table-warning{% elif obj.repition > 8  and  obj.repition <= 12 %}table-success{% endif %}" >
+			    <tr>
 			      <th scope="row">{{ obj.exercice.name }}</th>
 			      <td> <span class="badge badge-dark">{{ obj.exercice.primarymg }}</span></td>
 			      <td>{{ obj.weight }} Kg</td>
 			      <td>{{ obj.repition }}</td>
-            <td><form method="post" action="{% url 'volume:rep-delete' obj.id %}">{% csrf_token %}
+            <td ><form method="post" action="{% url 'volume:rep-delete' obj.id %}">{% csrf_token %}
     <button class="btn btn-danger text-white" type="submit" value="Confirm"><i class="far fa-trash-alt"></i></button>
 </form></td>
-			    </tr>
 			    {% endfor %}
 			  </tbody>
 			</table>
 			
 
 		</div>
-	</div>
+	
 </div>
 
 <!-- Modal -->
