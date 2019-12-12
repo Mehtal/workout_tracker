@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% if not user.is_authenticated %}
+{% block login %}
+<div class="page-header vh" filter-color="orange">
+      <div class="page-header-image" style="background-image:url(/static/img/a4.jpg)"></div>
+    
+<div class="container">
+    <div class="col-md-4 content-center">
+        <div class="card card-login card-plain">
+        	<h2>Create Account</h2>
+            <form class="form" method="POST" novalidate>
+            	{% csrf_token %}
+            	{% for hidden_field in form.hidden_fields %}
+            	   {{ hidden_field }}
+            	 {% endfor %}
+
+            	 {% if form.non_field_errors %}
+            	   <div class="alert alert-warning" role="alert">
+            	     {% for error in form.non_field_errors %}
+            	       {{ error }}
+            	     {% endfor %}
+            	   </div>
+            	 {% endif %}
+                <div class="content">
+                	
+                       <div class="input-group form-group-no-border input-lg">
+                        <span class="input-group-addon">
+                            <!-- <i class="now-ui-icons users_circle-08"></i> -->
+                             <label for="id_username"><i class="fas fa-user-circle mr-3"></i></label> 
+                        </span>
+                        <!-- <input type="text"  class="form-control" placeholder="إسم المستخدم"> -->
+                        
+                            <input type="text" name="username" id="id_username" autofocus="" maxlength="254" class="form-control" required="">
+                      
+                            </div>
+                    <div class="input-group form-group-no-border input-lg">
+                        <span class="input-group-addon">
+
+                            <!-- <i class="now-ui-icons users_circle-08"></i> -->
+                             <label for="id_password"><i class="fas fa-lock mr-3"></i></label> 
+                        </span>
+                        <!-- <input type="text"  class="form-control" placeholder="إسم المستخدم"> -->
+                        
+                        <input type="password" name="password1" id="id_password1" class="form-control" required="">
+                        </div>
+                        <div class="input-group form-group-no-border input-lg">
+                        <span class="input-group-addon">
+
+                            <!-- <i class="now-ui-icons users_circle-08"></i> -->
+                             <label for="id_password"><i class="fas fa-lock mr-3"></i></label> 
+                        </span>
+                        <!-- <input type="text"  class="form-control" placeholder="إسم المستخدم"> -->
+                        
+                        <input type="password" name="password2" id="id_password2" class="form-control" required="">
+                        </div>
+                        
+                            
+             
+                      {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                              {% endif %}
+                               <div class="footer text-center">
+                                <!-- <a type="submit" class="btn btn-danger btn-round btn-lg btn-block">Login</a> -->
+                                 <button type="submit" class="btn btn-danger btn-round btn-lg btn-block">Submit</button>
+                            </div>
+                            <div class="pull-left">
+                                <h6>
+                                    <a href="{% url 'login' %}" class="link">Login</a>
+                                </h6>
+                            </div>
+                           <!--  <div class="pull-right">
+                                <h6>
+                                    <a href="#" class="link">Reset Password</a>
+                                </h6>
+                            </div> -->
+                    </div>
+                
+               
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock login %}
+{% endif %}

@@ -4,7 +4,7 @@
 {% load widget_tweaks %}
 
 {% if not user.is_authenticated %}
-{% block content %}
+{% block login %}
 <div class="page-header vh" filter-color="orange">
     <div class="page-header-image" style="background-image:url({% static 'img/a4.jpg' %})"></div>
     <div class="container">
@@ -68,14 +68,15 @@
                     </div>
                     <div class="pull-left">
                         <h6>
-                            <a href="" class="link">Create Account</a>
+                            <a href="{% url 'signup' %} " class="link">Create Account</a>
                         </h6>
                     </div>
-                    <div class="pull-right">
+                    <!-- <div class="pull-right">
                         <h6>
                             <a href="#" class="link">Reset Password</a>
                         </h6>
-                    </div></div>
+                    </div> -->
+                </div>
                 </form>
             </div>
         </div>

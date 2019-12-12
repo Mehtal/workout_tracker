@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.contrib.auth import views as auth_views
 from django.views.static import serve
+from accounts.views import UserSignUpForm
 
 
 urlpatterns = [
@@ -26,13 +27,7 @@ urlpatterns = [
     path('', include('volume.urls', namespace="volume")),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
-    # path('/', include('volume.urls')),
-    # path('', SessionList.as_view(), name="session-list"),
-    # # path('reps/', RepList.as_view(), name="set-list"),
-    # path('reps/add/', RepCreateView.as_view(), name="add-set"),
-    # path('exercice/create/', ExerciceCreateView.as_view(), name="exercice_create"),
-    # path('session/detail/<int:pk>', SessionDetail.as_view(), name="session_detail"),
-    # path('session/create/', SessionCreateView.as_view(), name="session_create"),
+    path('signup/', UserSignUpForm.as_view(), name='signup')
 ]
 
 if not settings.DEBUG:
