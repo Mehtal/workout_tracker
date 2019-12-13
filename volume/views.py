@@ -1,13 +1,16 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+import json
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, reverse, redirect, get_object_or_404
+from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from accounts.models import User
-from .models import Rep, Exercice, Session
 from .forms import RepAddForm, SessionForm
-from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse_lazy
+from .models import Rep, Exercice, Session
+
+
 # Create your views here.
-from django.contrib.auth.decorators import login_required
+
 from django.utils.decorators import method_decorator
 
 
@@ -46,7 +49,7 @@ class SessionDetail(DetailView):
 
 
 @method_decorator(login_required, name='dispatch')
-class SessionList(LoginRequiredMixin, ListView):
+class SessionList(ListView):
     model = Session
     template_name = 'session_list.html'
 
@@ -79,6 +82,11 @@ class RepDeleteView(DeleteView):
     model = Rep
     template_name = 'rep_delete.html'
     success_url = reverse_lazy('volume:session-list')
+
+    def delete(self, request, *args, **kwargs):
+        self.get_object().delete()
+        payload = {'delete': 'ok'}
+        return HttpResponse(json.dumps(payload), content_type='application/json')
 
 
 @method_decorator(login_required, name='dispatch')

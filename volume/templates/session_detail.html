@@ -83,3 +83,28 @@
 
 {% endblock content %}
 
+{% block js %}
+<!-- <script type="text/javascript">
+
+
+  $("button").click(function(btn_id){
+    var btn_id = $("button").attr('id')
+    var _url = $("button").attr('data-url')
+    console.log("you clicked the button ", btn_id , _url);
+    $.ajax({
+      url: _url,
+      type: 'DELETE',
+      data: {
+        'pk' : btn_id
+      },
+      contentType:'application/json',
+      dataType: 'text',
+      error: function(result){},
+      success: function(result) {}
+  });
+  
+});
+  
+
+</script> -->
+{% endblock js %}  
