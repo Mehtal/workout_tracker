@@ -2,11 +2,19 @@
 {% load widget_tweaks %}
 
 {% block content %}
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script type='text/javascript'>
+    var exercices = {{ exercices|safe }};
+  </script>
+
 <div class="container">
 	<div class="row">
 		<div class="col my-3">
 			<h1 class="mb-0">Session detail {{ object.date }}</h1>
       <p class="text-muted">current body weight is {{ object.get_body_weight }} kg. </p>
+      <p>{{object.get_total_volume}} </p>
+     
+      
     </div>    
         <!-- <p class="text-muted">{{object.get_total_volume}}</p>
         <p class="text-muted">your chest volume is {{object.get_chest_volume}}</p> -->
@@ -32,12 +40,40 @@
             <td ><form method="post" action="{% url 'volume:rep-delete' obj.id %}">{% csrf_token %}
     <button class="btn btn-danger text-white" type="submit" value="Confirm"><i class="far fa-trash-alt"></i></button>
 </form></td>
+          </tr>
 			    {% endfor %}
 			  </tbody>
 			</table>
 			
 
 		</div>
+      
+        <div id="app" class="row my-5"> 
+          <table class="table">
+            <thead class="bg-default">
+              <tr>
+                <th>name </th>
+                <!-- <th>muscle</th> -->
+                <th>weight</th>
+                <th>repition</th>
+               
+              </tr>
+            </thead>
+            <tbody>
+              {%  if exercices %}
+              <tr v-for="rep in exercices">
+                <th scope="row">[[ rep.fields.exercice ]]</th>
+                <!-- <td> <span class="badge badge-dark">{{ obj.exercice.primarymg }}</span></td> -->
+                <td>[[ rep.fields.weight ]] Kg</td>
+                <td>[[ rep.fields.repition ]]p</td>
+               
+              </tr>
+              {% endif %}
+            </tbody>
+          </table>
+          
+
+        </div>
 	
 </div>
 
@@ -84,18 +120,33 @@
 {% endblock content %}
 
 {% block js %}
+<script>
+    var app = new Vue({
+      delimiters: ['[[', ']]'],
+      el: '#app',
+      data: {
+          message: 'Hello Vue!',
+          exercices: exercices,
+      },
+    });
+    console.log("exercices : ",exercices,)
+    console.log("********", exercices[0])
+    console.log("********", exercices[0].fields.weight)
+  </script>
+
 <!-- <script type="text/javascript">
 
 
-  $("button").click(function(btn_id){
-    var btn_id = $("button").attr('id')
-    var _url = $("button").attr('data-url')
-    console.log("you clicked the button ", btn_id , _url);
+  $("form").click(function(e){
+    e.preventDefault()
+   /* var btn_id = $("form").attr('id')*/
+    var _url = $("form").attr('action')
+    console.log("you clicked the button ", "{{ csrf_token }}" );
     $.ajax({
       url: _url,
       type: 'DELETE',
       data: {
-        'pk' : btn_id
+        CSRF: "{{ csrf_token }}",
       },
       contentType:'application/json',
       dataType: 'text',

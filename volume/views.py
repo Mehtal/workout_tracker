@@ -1,5 +1,6 @@
 import json
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -36,8 +37,21 @@ class SessionDetail(DetailView):
         context = super(SessionDetail, self).get_context_data(**kwargs)
         """ adding initial form data (prepopulating the session field"""
         set_form_data = {"session": self.object.id}
+        exercices = Rep.objects.filter(session=self.object.id)
         context['set_form'] = RepAddForm(self.object.user, initial=set_form_data)
+        context['exercices'] = serializers.serialize("json", exercices, indent=4,relations={'rep':{'relations':('exercice',)}})
         return context
+
+    def get_musclegroup(self, mg):
+        # musclegroup = Session.objects.get(id=self.request.id).rep_set.filter(exercice__primarymg__id=mg)
+        self.object.rep_set.filter(exercice__primarymg__id=mg)
+        return musclegroup
+
+    def get_volume_by_musclegroup(get_musclegroup):
+        volume = 0
+        for rep in get_musclegroup:
+            volume += (rep.weight * rep.repition)
+        return volume
 
     # def get_total_volume(self, request, *args, **kwargs):
     #     session = request.session

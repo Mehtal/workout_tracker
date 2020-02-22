@@ -6,6 +6,7 @@ from accounts.models import User
 
 class Musclegroup(models.Model):
     name = models.CharField(max_length=20)
+
     class Meta:
         ordering = ['name']
 
@@ -26,7 +27,7 @@ class Exercice(models.Model):
     primarymg = models.ForeignKey('Musclegroup', on_delete=models.CASCADE)
     # muscle = models.ManyToManyField('Muscle', related_name="muscles")
     secondarymg = models.ManyToManyField('Musclegroup', related_name="secondarymg")
-    image = models.ImageField(upload_to="Workout/images")
+    image = models.ImageField(upload_to="Workout/images", balnk=True, null=True)
 
     class Meta:
         ordering = ['primarymg', 'name']
@@ -49,6 +50,18 @@ class Session(models.Model):
 
     def __str__(self):
         return str(self.date)
+
+    def get_musclegroup(self):
+        # musclegroup = Session.objects.get(id=self.request.id).rep_set.filter(exercice__primarymg__id=mg)
+        musclegroup = self.rep_set.filter(exercice__primarymg__id=1)
+        return musclegroup
+
+    def get_volume_by_musclegroup(self, get_musclegroup):
+        # get_musclegroup = self.get_musclegroup
+        volume = 0
+        for rep in get_musclegroup:
+            volume += (rep.weight * rep.repition)
+        return volume
 
     def get_total_volume(self):
         session = self
