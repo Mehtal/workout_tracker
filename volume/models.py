@@ -27,8 +27,8 @@ class Exercice(models.Model):
     primarymg = models.ForeignKey('Musclegroup', on_delete=models.CASCADE)
     # muscle = models.ManyToManyField('Muscle', related_name="muscles")
     secondarymg = models.ManyToManyField('Musclegroup', related_name="secondarymg")
-    image = models.ImageField(upload_to="Workout/images", balnk=True, null=True)
-
+    photo = models.ImageField(upload_to="Workout/images", null=True, blank=True)
+	
     class Meta:
         ordering = ['primarymg', 'name']
 
